@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="background-image">
+    <div class="overlay"></div>
+
+    <div class="header-container">
+      <h1 class="header-title">AutoConnect</h1>
+      <p class="header-subtitle">Premium İkinci El Araba Pazarı</p>
+    </div>
+
+    <div class="card-container">
+      <div
+        class="card"
+        [ngStyle]="{
+          'background-color': theme.cardColor,
+          'box-shadow': '0px 2px 4px ' + theme.shadowColor + '3D'
+        }"
+      >
+        <h2 class="welcome-text" [ngStyle]="{ color: theme.textColor }">
+          Tekrar Hoşgeldiniz
+        </h2>
+        <p
+          class="subtitle-text"
+          [ngStyle]="{ color: theme.secondaryTextColor }"
+        >
+          AutoConnect'e giriş yapın
+        </p>
+
+        <button
+          class="google-button"
+          [disabled]="isLoading"
+          (click)="handleGoogleLogin()"
+        >
+          <div class="google-icon-container">
+            <img src="assets/google-icon.svg" alt="G" class="google-icon" />
+          </div>
+          <span
+            class="google-button-text"
+            [ngStyle]="{ color: theme.textColor }"
+            >Google ile Devam Et</span
+          >
+        </button>
+
+        <button
+          class="email-button"
+          [disabled]="isLoading"
+          [ngStyle]="{ 'background-color': theme.accentColor }"
+          (click)="handleLogin()"
+        >
+          <span class="email-button-text">E-posta ile Giriş Yap</span>
+        </button>
+
+        <div class="signup-container">
+          <span
+            class="signup-text"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Hesabınız yok mu?</span
+          >
+          <a class="signup-link" [ngStyle]="{ color: theme.accentColor }"
+            >Kaydol</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="features-container">
+      <div class="feature-item">
+        <span class="feature-icon">🔎</span>
+        <span class="feature-text">Onaylı ikinci el arabalar</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">💰</span>
+        <span class="feature-text">En iyi piyasa fiyatları</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🔒</span>
+        <span class="feature-text">Güvenli işlemler</span>
+      </div>
+    </div>
+  </div>
+</div>

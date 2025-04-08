@@ -1,0 +1,255 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back-button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.header-title {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.favorite-button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  height: 100%;
+}
+
+.error-text {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.content-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 24px;
+}
+
+.image-container {
+  width: 100%;
+  height: 250px;
+  background-color: #f0f0f0;
+  overflow: hidden;
+  position: relative;
+}
+
+.car-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content-container {
+  padding: 16px;
+}
+
+.title-row {
+  margin-bottom: 12px;
+}
+
+.car-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.car-price {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.credit-button {
+  display: inline-block;
+  padding: 8px 12px;
+  text-align: center;
+  background: transparent;
+  border: 1px solid;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.location-container {
+  border-bottom: 1px solid;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.location-text {
+  margin: 0;
+  font-size: 16px;
+}
+
+.specs-container {
+  margin-bottom: 20px;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid;
+}
+
+.spec-row:last-child {
+  border-bottom: none;
+}
+
+.spec-label {
+  font-size: 14px;
+  flex: 1;
+}
+
+.spec-value {
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  text-align: right;
+}
+
+.action-container {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  border-radius: 8px;
+  padding: 14px 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  cursor: pointer;
+  border: none;
+}
+
+.secondary-button {
+  border-radius: 8px;
+  padding: 14px 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  border: 1px solid;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Responsive styles */
+@media (min-width: 768px) {
+  .image-container {
+    height: 300px;
+  }
+
+  .content-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  .action-container {
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .button,
+  .secondary-button {
+    flex: 1;
+  }
+
+  .button {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .image-container {
+    height: 200px;
+  }
+
+  .header {
+    padding: 8px 12px;
+  }
+
+  .back-button,
+  .favorite-button {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  .header-title {
+    font-size: 16px;
+  }
+
+  .car-title {
+    font-size: 18px;
+  }
+
+  .car-price {
+    font-size: 20px;
+  }
+
+  .content-container {
+    padding: 12px;
+  }
+
+  .spec-label,
+  .spec-value {
+    font-size: 13px;
+  }
+
+  .button,
+  .secondary-button {
+    padding: 12px 0;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,49 @@
+<div class="favorites-container">
+  <!-- Favoriler Boşsa -->
+  <div *ngIf="favorites.length === 0" class="empty-container">
+    <div class="empty-icon">💔</div>
+    <h2 class="empty-title" [ngStyle]="{ color: theme.textColor }">
+      Henüz favoriniz yok
+    </h2>
+    <p class="empty-text" [ngStyle]="{ color: theme.secondaryTextColor }">
+      Ana sayfa'dan araçları favorilerinize ekleyebilirsiniz.
+    </p>
+  </div>
+
+  <!-- Favoriler Listesi -->
+  <div *ngIf="favorites.length > 0" class="favorites-list">
+    <div
+      *ngFor="let car of favorites"
+      class="car-item"
+      [ngStyle]="{
+        'background-color': theme.cardColor,
+        'box-shadow': '0px 2px 4px ' + theme.shadowColor + '1A'
+      }"
+    >
+      <img [src]="car.image" class="car-image" alt="Car Image" />
+      <div class="favorite-button" (click)="removeFavorite(car.id)">
+        <span class="favorite-icon">❤️</span>
+      </div>
+      <div class="car-details">
+        <h3 class="car-title" [ngStyle]="{ color: theme.textColor }">
+          {{ car.year }} {{ car.make }} {{ car.model }}
+        </h3>
+        <div class="car-price" [ngStyle]="{ color: theme.accentColor }">
+          {{ car.price }}
+        </div>
+        <div *ngIf="car.mileage" class="car-info-row">
+          <div class="car-info" [ngStyle]="{ color: theme.secondaryTextColor }">
+            {{ car.mileage }}
+          </div>
+          <div
+            *ngIf="car.location"
+            class="car-location"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+          >
+            {{ car.location }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

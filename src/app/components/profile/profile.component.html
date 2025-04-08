@@ -1,0 +1,161 @@
+<div
+  class="container"
+  [ngStyle]="{ 'background-color': theme.backgroundColor }"
+>
+  <!-- Header Background -->
+  <div
+    class="header-background"
+    [style.background-image]="
+      'url(' +
+      (isDarkMode
+        ? 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80'
+        : 'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80') +
+      ')'
+    "
+  >
+    <div class="header-overlay"></div>
+    <div class="header">
+      <button
+        class="back-button"
+        [ngStyle]="{ 'background-color': theme.cardColor + '80' }"
+        (click)="goBack()"
+      >
+        <span [ngStyle]="{ color: theme.textColor }">←</span>
+      </button>
+      <div
+        class="theme-toggle-button"
+        [ngStyle]="{ 'background-color': theme.cardColor + '80' }"
+      >
+        <label class="switch">
+          <input
+            type="checkbox"
+            [checked]="isDarkMode"
+            (change)="toggleTheme()"
+          />
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Container -->
+  <div class="profile-container" [@fadeInUp]>
+    <div
+      class="profile-card"
+      [ngStyle]="{ 'background-color': theme.cardColor }"
+    >
+      <div class="profile-image-container">
+        <img
+          src="https://randomuser.me/api/portraits/men/72.jpg"
+          class="profile-image"
+          alt="Profile picture"
+        />
+        <div class="status-indicator" style="background-color: #4caf50"></div>
+      </div>
+      <h2 class="user-name" [ngStyle]="{ color: theme.textColor }">
+        Ahmet Yılmaz
+      </h2>
+      <p class="user-email" [ngStyle]="{ color: theme.secondaryTextColor }">
+        ahmet.yilmaz&#64;example.com
+      </p>
+      <div class="stats-container">
+        <div class="stat-item">
+          <p class="stat-number" [ngStyle]="{ color: theme.textColor }">12</p>
+          <p class="stat-label" [ngStyle]="{ color: theme.secondaryTextColor }">
+            İlanlar
+          </p>
+        </div>
+        <div
+          class="stat-divider"
+          [ngStyle]="{ 'background-color': theme.borderColor }"
+        ></div>
+        <div class="stat-item">
+          <p class="stat-number" [ngStyle]="{ color: theme.textColor }">24</p>
+          <p class="stat-label" [ngStyle]="{ color: theme.secondaryTextColor }">
+            Favoriler
+          </p>
+        </div>
+        <div
+          class="stat-divider"
+          [ngStyle]="{ 'background-color': theme.borderColor }"
+        ></div>
+        <div class="stat-item">
+          <p class="stat-number" [ngStyle]="{ color: theme.textColor }">8</p>
+          <p class="stat-label" [ngStyle]="{ color: theme.secondaryTextColor }">
+            Teklifler
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Container -->
+  <div class="content-container">
+    <h3 class="section-title" [ngStyle]="{ color: theme.textColor }">
+      Ayarlar
+    </h3>
+    <div
+      class="settings-card"
+      [ngStyle]="{ 'background-color': theme.cardColor }"
+    >
+      <div
+        *ngFor="let item of settingsItems; let last = last; let i = index"
+        [class]="item.isLogout ? 'setting-item logout-item' : 'setting-item'"
+        [ngStyle]="{
+          'border-bottom-color': !item.isLogout
+            ? theme.borderColor
+            : 'transparent',
+          'border-bottom-width': !last && !item.isLogout ? '1px' : '0'
+        }"
+        (click)="item.action()"
+      >
+        <div class="setting-left">
+          <div
+            class="setting-icon"
+            [ngStyle]="{ 'background-color': item.iconBg }"
+          >
+            <span class="setting-icon-text">{{ item.icon }}</span>
+          </div>
+          <span
+            class="setting-text"
+            [ngStyle]="
+              item.isLogout
+                ? { color: '#F44336', 'font-weight': '600' }
+                : { color: theme.textColor }
+            "
+          >
+            {{ item.title }}
+          </span>
+        </div>
+        <span
+          class="setting-arrow"
+          [ngStyle]="
+            item.isLogout
+              ? { color: '#F44336' }
+              : { color: theme.secondaryTextColor }
+          "
+        >
+          {{ item.isLogout ? "🚪" : "→" }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Logout Button -->
+    <div class="logout-button-container">
+      <button
+        class="logout-button"
+        [ngStyle]="{ 'background-color': '#F44336' }"
+        (click)="handleLogout()"
+      >
+        <span class="logout-icon">🚪</span>
+        <span class="logout-text">Çıkış Yap</span>
+      </button>
+    </div>
+
+    <div class="version-info">
+      <p class="version-text" [ngStyle]="{ color: theme.secondaryTextColor }">
+        AutoConnect v1.0.0
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,321 @@
+<div
+  class="container"
+  [ngStyle]="{ 'background-color': theme.backgroundColor }"
+>
+  <!-- Üst Navigasyon Menüsü -->
+  <nav class="top-nav" [ngStyle]="{ 'background-color': theme.headerColor }">
+    <div class="header-title" [ngStyle]="{ color: theme.accentColor }">
+      AutoConnect
+    </div>
+
+    <div class="nav-items">
+      <div
+        class="nav-item"
+        [class.active]="activeTab === 'AnaSayfa'"
+        (click)="changeTab('AnaSayfa')"
+      >
+        <span class="nav-icon">🏠</span>
+        <span class="nav-text">Ana Sayfa</span>
+      </div>
+      <div
+        class="nav-item"
+        [class.active]="activeTab === 'Sat'"
+        (click)="changeTab('Sat')"
+      >
+        <span class="nav-icon">💰</span>
+        <span class="nav-text">Sat</span>
+      </div>
+      <div
+        class="nav-item"
+        [class.active]="activeTab === 'Favoriler'"
+        (click)="changeTab('Favoriler')"
+      >
+        <span class="nav-icon">❤️</span>
+        <span class="nav-text">Favoriler</span>
+      </div>
+      <div
+        class="nav-item"
+        [class.active]="activeTab === 'Mesajlar'"
+        (click)="changeTab('Mesajlar')"
+      >
+        <span class="nav-icon">💬</span>
+        <span class="nav-text">Mesajlar</span>
+        <span *ngIf="unreadMessageCount > 0" class="badge">{{
+          unreadMessageCount
+        }}</span>
+      </div>
+    </div>
+
+    <div
+      class="profile-button"
+      [ngStyle]="{ 'background-color': theme.iconBackground }"
+      (click)="handleProfilePress()"
+    >
+      <span class="profile-icon">👤</span>
+    </div>
+  </nav>
+
+  <!-- Ana İçerik -->
+  <div class="content-container">
+    <!-- Sat Tab İçeriği -->
+    <div *ngIf="activeTab === 'Sat'">
+      <app-sell></app-sell>
+    </div>
+
+    <!-- Favoriler Tab İçeriği -->
+    <div *ngIf="activeTab === 'Favoriler'">
+      <app-favorites></app-favorites>
+    </div>
+
+    <!-- Mesajlar Tab İçeriği -->
+    <div *ngIf="activeTab === 'Mesajlar'">
+      <app-messages></app-messages>
+    </div>
+
+    <!-- Ana Sayfa İçeriği -->
+    <div *ngIf="activeTab === 'AnaSayfa'">
+      <!-- Arama Alanı -->
+      <div class="search-container">
+        <div
+          class="search-input-container"
+          [ngStyle]="{
+            'background-color': theme.cardColor,
+            'border-color': theme.borderColor,
+            'box-shadow': '0px 1px 2px ' + theme.shadowColor + '1A'
+          }"
+        >
+          <span [ngStyle]="{ color: theme.secondaryTextColor }">🔍</span>
+          <input
+            type="text"
+            class="search-input"
+            [ngStyle]="{ color: theme.textColor }"
+            placeholder="Marka, model veya konum ara..."
+            [(ngModel)]="searchText"
+            (input)="onSearchTextChange()"
+          />
+          <span
+            *ngIf="searchText !== ''"
+            (click)="searchText = ''; onSearchTextChange()"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            class="clear-search"
+            >✕</span
+          >
+        </div>
+        <div
+          class="filter-button"
+          [ngStyle]="{ 'background-color': theme.buttonColor }"
+        >
+          <span class="filter-icon">⚙️</span>
+        </div>
+      </div>
+
+      <!-- Arama Sonuçları -->
+      <div *ngIf="searchText.trim() !== ''" class="search-results-container">
+        <h2 class="search-results-title" [ngStyle]="{ color: theme.textColor }">
+          Arama Sonuçları
+        </h2>
+
+        <div
+          *ngFor="let car of searchResults"
+          class="search-result-item"
+          [ngStyle]="{
+            'background-color': theme.cardColor,
+            'box-shadow': '0px 1px 3px ' + theme.shadowColor + '3D'
+          }"
+          (click)="navigateToCarDetails(car)"
+        >
+          <img [src]="car.image" class="search-result-image" alt="Car Image" />
+          <div class="search-result-details">
+            <div
+              class="search-result-title"
+              [ngStyle]="{ color: theme.textColor }"
+            >
+              {{ car.year }} {{ car.make }} {{ car.model }}
+            </div>
+            <div
+              class="search-result-price"
+              [ngStyle]="{ color: theme.accentColor }"
+            >
+              {{ car.price }}
+            </div>
+            <div
+              *ngIf="car.location"
+              class="search-result-location"
+              [ngStyle]="{ color: theme.secondaryTextColor }"
+            >
+              {{ car.location }}
+            </div>
+          </div>
+          <div
+            class="search-result-favorite-button"
+            (click)="$event.stopPropagation(); toggleFavorite(car)"
+          >
+            <span class="favorite-icon">{{
+              isFavorite(car.id) ? "❤️" : "🤍"
+            }}</span>
+          </div>
+        </div>
+
+        <div *ngIf="searchResults.length === 0" class="empty-results-container">
+          <div
+            class="empty-results-text"
+            [ngStyle]="{ color: theme.textColor }"
+          >
+            "{{ searchText }}" için sonuç bulunamadı
+          </div>
+        </div>
+      </div>
+
+      <!-- Ana Sayfa İçeriği (Arama yapılmadığında) -->
+      <div *ngIf="searchText.trim() === ''" class="main-content">
+        <!-- Kategoriler -->
+        <div class="section-header">
+          <div class="section-title" [ngStyle]="{ color: theme.textColor }">
+            Kategoriler
+          </div>
+          <div
+            *ngIf="selectedCategory"
+            class="clear-filter-text"
+            [ngStyle]="{ color: theme.accentColor }"
+            (click)="clearFilter()"
+          >
+            Filtreyi Temizle
+          </div>
+        </div>
+
+        <div class="categories-container">
+          <div
+            *ngFor="let category of categories"
+            class="category-item"
+            [class.selected]="selectedCategory === category.name"
+            [ngStyle]="{
+              'background-color':
+                selectedCategory === category.name
+                  ? theme.accentColor + '20'
+                  : 'transparent'
+            }"
+            (click)="handleCategorySelect(category.name)"
+          >
+            <div class="category-icon">{{ category.icon }}</div>
+            <div
+              class="category-name"
+              [ngStyle]="{
+                color:
+                  selectedCategory === category.name
+                    ? theme.accentColor
+                    : theme.textColor
+              }"
+            >
+              {{ category.name }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Öne Çıkan Araçlar -->
+        <div class="section-title" [ngStyle]="{ color: theme.textColor }">
+          Öne Çıkan Araçlar
+        </div>
+        <div class="featured-container">
+          <div
+            *ngFor="let car of featuredCars"
+            class="featured-car-item"
+            (click)="navigateToCarDetails(car)"
+          >
+            <img
+              [src]="car.image"
+              class="featured-car-image"
+              alt="Featured Car"
+            />
+            <div
+              class="featured-favorite-button"
+              (click)="$event.stopPropagation(); toggleFavorite(car)"
+            >
+              <span class="favorite-icon">{{
+                isFavorite(car.id) ? "❤️" : "🤍"
+              }}</span>
+            </div>
+            <div class="featured-car-overlay">
+              <div class="featured-car-title">
+                {{ car.year }} {{ car.make }} {{ car.model }}
+              </div>
+              <div class="featured-car-price">{{ car.price }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Araç Listesi -->
+        <div class="list-header-container">
+          <div class="section-title" [ngStyle]="{ color: theme.textColor }">
+            {{
+              selectedCategory ? selectedCategory + " Araçları" : "Son İlanlar"
+            }}
+          </div>
+          <div class="view-all-text" [ngStyle]="{ color: theme.accentColor }">
+            Tümünü Gör
+          </div>
+        </div>
+
+        <div *ngIf="filteredCars.length > 0; else noResults">
+          <div
+            *ngFor="let car of filteredCars"
+            class="car-item"
+            [ngStyle]="{
+              'background-color': theme.cardColor,
+              'box-shadow': '0px 1px 3px ' + theme.shadowColor + '3D'
+            }"
+            (click)="navigateToCarDetails(car)"
+          >
+            <img [src]="car.image" class="car-image" alt="Car Image" />
+            <div
+              class="favorite-button"
+              (click)="$event.stopPropagation(); toggleFavorite(car)"
+            >
+              <span class="favorite-icon">{{
+                isFavorite(car.id) ? "❤️" : "🤍"
+              }}</span>
+            </div>
+            <div class="car-details">
+              <div class="car-title" [ngStyle]="{ color: theme.textColor }">
+                {{ car.year }} {{ car.make }} {{ car.model }}
+              </div>
+              <div class="car-price" [ngStyle]="{ color: theme.accentColor }">
+                {{ car.price }}
+              </div>
+              <div class="car-info-row">
+                <div
+                  class="car-info"
+                  [ngStyle]="{ color: theme.secondaryTextColor }"
+                >
+                  {{ car.mileage }}
+                </div>
+                <div
+                  class="car-location"
+                  [ngStyle]="{ color: theme.secondaryTextColor }"
+                >
+                  {{ car.location }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #noResults>
+          <div class="no-results-container">
+            <div class="no-results-text" [ngStyle]="{ color: theme.textColor }">
+              Seçili kategoride araç bulunamadı.
+            </div>
+            <button
+              class="clear-filter-button"
+              [ngStyle]="{ 'background-color': theme.accentColor }"
+              (click)="clearFilter()"
+            >
+              <span class="clear-filter-button-text" style="color: #fff"
+                >Filtreyi Temizle</span
+              >
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

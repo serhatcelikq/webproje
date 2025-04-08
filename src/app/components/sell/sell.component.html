@@ -1,0 +1,357 @@
+<!-- Form İçeriği -->
+<div class="form-container">
+  <!-- Resim Yükleme Alanı -->
+  <div
+    class="section image-section"
+    [ngStyle]="{
+      'background-color': theme.cardColor,
+      'border-color': theme.borderColor
+    }"
+  >
+    <div
+      class="add-image-button"
+      [ngStyle]="{ 'border-color': theme.borderColor }"
+      (click)="handleAddImage()"
+    >
+      <span class="add-image-icon" [ngStyle]="{ color: theme.accentColor }">
+        <i class="fas fa-camera"></i>
+      </span>
+      <span class="add-image-text" [ngStyle]="{ color: theme.textColor }">
+        Fotoğraf Ekle
+      </span>
+    </div>
+  </div>
+
+  <!-- Temel Bilgiler -->
+  <div
+    class="section"
+    [ngStyle]="{
+      'background-color': theme.cardColor,
+      'border-color': theme.borderColor
+    }"
+  >
+    <h2 class="section-title" [ngStyle]="{ color: theme.textColor }">
+      Temel Bilgiler
+    </h2>
+
+    <!-- Marka -->
+    <div class="input-group">
+      <label class="label" [ngStyle]="{ color: theme.textColor }">Marka</label>
+      <div
+        class="select-container"
+        [ngStyle]="{
+          'border-color': theme.borderColor,
+          'background-color': theme.backgroundColor
+        }"
+        (click)="toggleDropdown('brand')"
+      >
+        <span [ngStyle]="{ color: theme.textColor }">
+          {{ formData.brand || "Marka Seçin" }}
+        </span>
+        <span [ngStyle]="{ color: theme.accentColor }">▼</span>
+      </div>
+
+      <!-- Marka Dropdown -->
+      <div
+        *ngIf="showBrandDropdown"
+        class="dropdown-menu"
+        [ngStyle]="{
+          'background-color': theme.cardColor,
+          'border-color': theme.borderColor
+        }"
+      >
+        <div
+          *ngFor="let brand of carBrands"
+          class="dropdown-item"
+          [ngStyle]="{
+            color: theme.textColor,
+            'border-color': theme.borderColor
+          }"
+          (click)="selectOption('brand', brand)"
+        >
+          {{ brand }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Model -->
+    <div class="input-group">
+      <label class="label" [ngStyle]="{ color: theme.textColor }">Model</label>
+      <input
+        type="text"
+        class="input"
+        [ngStyle]="{
+          'background-color': theme.backgroundColor,
+          color: theme.textColor,
+          'border-color': theme.borderColor
+        }"
+        placeholder="Model"
+        [(ngModel)]="formData.model"
+      />
+    </div>
+
+    <!-- Yıl -->
+    <div class="input-group">
+      <label class="label" [ngStyle]="{ color: theme.textColor }">Yıl</label>
+      <input
+        type="number"
+        class="input"
+        [ngStyle]="{
+          'background-color': theme.backgroundColor,
+          color: theme.textColor,
+          'border-color': theme.borderColor
+        }"
+        placeholder="Yıl"
+        [(ngModel)]="formData.year"
+      />
+    </div>
+
+    <!-- Kilometre -->
+    <div class="input-group">
+      <label class="label" [ngStyle]="{ color: theme.textColor }"
+        >Kilometre</label
+      >
+      <input
+        type="number"
+        class="input"
+        [ngStyle]="{
+          'background-color': theme.backgroundColor,
+          color: theme.textColor,
+          'border-color': theme.borderColor
+        }"
+        placeholder="Kilometre"
+        [(ngModel)]="formData.kilometer"
+      />
+    </div>
+  </div>
+
+  <!-- Teknik Özellikler -->
+  <div
+    class="section"
+    [ngStyle]="{
+      'background-color': theme.cardColor,
+      'border-color': theme.borderColor
+    }"
+  >
+    <h2 class="section-title" [ngStyle]="{ color: theme.textColor }">
+      Teknik Özellikler
+    </h2>
+
+    <!-- Yakıt Tipi -->
+    <div class="input-group">
+      <label class="label" [ngStyle]="{ color: theme.textColor }"
+        >Yakıt Tipi</label
+      >
+      <div
+        class="select-container"
+        [ngStyle]="{
+          'border-color': theme.borderColor,
+          'background-color': theme.backgroundColor
+        }"
+        (click)="toggleDropdown('fuelType')"
+      >
+        <span [ngStyle]="{ color: theme.textColor }">
+          {{ formData.fuelType || "Yakıt Tipi Seçin" }}
+        </span>
+        <span [ngStyle]="{ color: theme.accentColor }">▼</span>
+      </div>
+
+      <!-- Yakıt Tipi Dropdown -->
+      <div
+        *ngIf="showFuelTypeDropdown"
+        class="dropdown-menu"
+        [ngStyle]="{
+          'background-color': theme.cardColor,
+          'border-color': theme.borderColor
+        }"
+      >
+        <div
+          *ngFor="let type of fuelTypes"
+          class="dropdown-item"
+          [ngStyle]="{
+            color: theme.textColor,
+            'border-color': theme.borderColor
+          }"
+          (click)="selectOption('fuelType', type)"
+        >
+          {{ type }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Vites -->
+    <div class="input-group">
+      <label class="label" [ngStyle]="{ color: theme.textColor }">Vites</label>
+      <div
+        class="select-container"
+        [ngStyle]="{
+          'border-color': theme.borderColor,
+          'background-color': theme.backgroundColor
+        }"
+        (click)="toggleDropdown('transmission')"
+      >
+        <span [ngStyle]="{ color: theme.textColor }">
+          {{ formData.transmission || "Vites Tipi Seçin" }}
+        </span>
+        <span [ngStyle]="{ color: theme.accentColor }">▼</span>
+      </div>
+
+      <!-- Vites Dropdown -->
+      <div
+        *ngIf="showTransmissionDropdown"
+        class="dropdown-menu"
+        [ngStyle]="{
+          'background-color': theme.cardColor,
+          'border-color': theme.borderColor
+        }"
+      >
+        <div
+          *ngFor="let type of transmissionTypes"
+          class="dropdown-item"
+          [ngStyle]="{
+            color: theme.textColor,
+            'border-color': theme.borderColor
+          }"
+          (click)="selectOption('transmission', type)"
+        >
+          {{ type }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Renk -->
+    <div class="input-group">
+      <label class="label" [ngStyle]="{ color: theme.textColor }">Renk</label>
+      <div
+        class="select-container"
+        [ngStyle]="{
+          'border-color': theme.borderColor,
+          'background-color': theme.backgroundColor
+        }"
+        (click)="toggleDropdown('color')"
+      >
+        <span [ngStyle]="{ color: theme.textColor }">
+          {{ formData.color || "Renk Seçin" }}
+        </span>
+        <span [ngStyle]="{ color: theme.accentColor }">▼</span>
+      </div>
+
+      <!-- Renk Dropdown -->
+      <div
+        *ngIf="showColorDropdown"
+        class="dropdown-menu"
+        [ngStyle]="{
+          'background-color': theme.cardColor,
+          'border-color': theme.borderColor
+        }"
+      >
+        <div
+          *ngFor="let color of colors"
+          class="dropdown-item"
+          [ngStyle]="{
+            color: theme.textColor,
+            'border-color': theme.borderColor
+          }"
+          (click)="selectOption('color', color)"
+        >
+          {{ color }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fiyat -->
+  <div
+    class="section"
+    [ngStyle]="{
+      'background-color': theme.cardColor,
+      'border-color': theme.borderColor
+    }"
+  >
+    <h2 class="section-title" [ngStyle]="{ color: theme.textColor }">Fiyat</h2>
+    <div class="input-group">
+      <input
+        type="number"
+        class="input"
+        [ngStyle]="{
+          'background-color': theme.backgroundColor,
+          color: theme.textColor,
+          'border-color': theme.borderColor
+        }"
+        placeholder="Fiyat (TL)"
+        [(ngModel)]="formData.price"
+      />
+    </div>
+  </div>
+
+  <!-- Özellikler -->
+  <div
+    class="section"
+    [ngStyle]="{
+      'background-color': theme.cardColor,
+      'border-color': theme.borderColor
+    }"
+  >
+    <h2 class="section-title" [ngStyle]="{ color: theme.textColor }">
+      Özellikler
+    </h2>
+    <div class="features-grid">
+      <div
+        *ngFor="let feature of objectKeys(formData.features)"
+        class="feature-item"
+        [ngStyle]="{
+          'background-color': formData.features[feature]
+            ? theme.accentColor
+            : theme.backgroundColor,
+          'border-color': theme.borderColor
+        }"
+        (click)="toggleFeature(feature)"
+      >
+        <span class="feature-icon">{{ getFeatureEmoji(feature) }}</span>
+        <span
+          class="feature-text"
+          [ngStyle]="{
+            color: formData.features[feature] ? 'white' : theme.textColor
+          }"
+        >
+          {{ getFeatureLabel(feature) }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Açıklama -->
+  <div
+    class="section"
+    [ngStyle]="{
+      'background-color': theme.cardColor,
+      'border-color': theme.borderColor
+    }"
+  >
+    <h2 class="section-title" [ngStyle]="{ color: theme.textColor }">
+      Açıklama
+    </h2>
+    <div class="input-group">
+      <textarea
+        class="textarea"
+        [ngStyle]="{
+          'background-color': theme.backgroundColor,
+          color: theme.textColor,
+          'border-color': theme.borderColor
+        }"
+        placeholder="Aracınız hakkında detaylı bilgi verin..."
+        rows="6"
+        [(ngModel)]="formData.description"
+      ></textarea>
+    </div>
+  </div>
+
+  <!-- Gönder Butonu -->
+  <button
+    class="submit-button"
+    [ngStyle]="{ 'background-color': theme.accentColor }"
+    (click)="handleSubmit()"
+  >
+    İlanı Yayınla
+  </button>
+</div>

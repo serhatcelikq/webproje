@@ -1,0 +1,302 @@
+.messages-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER STYLES */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.back-button {
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-info {
+  flex: 1;
+  margin-left: 8px;
+}
+
+.header-text {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 4px 0;
+}
+
+.subheader-text {
+  font-size: 14px;
+  margin: 0;
+}
+
+.header-avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* KONUŞMA LİSTESİ */
+.conversation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.conversation-item {
+  display: flex;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border: 1px solid;
+}
+
+.conversation-item:hover {
+  transform: translateY(-2px);
+}
+
+.avatar-container {
+  position: relative;
+  margin-right: 12px;
+}
+
+.conversation-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  object-fit: cover;
+}
+
+.unread-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  background-color: #ff4040;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.conversation-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.conversation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.conversation-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.conversation-time {
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.conversation-subheader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.conversation-last-message {
+  font-size: 14px;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 70%;
+}
+
+.conversation-car-info {
+  font-size: 12px;
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.unread-text {
+  font-weight: bold;
+}
+
+/* BOŞ MESAJ */
+.empty-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.empty-text {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.empty-subtext {
+  font-size: 14px;
+  max-width: 250px;
+}
+
+/* MESAJLAŞMA GÖRÜNÜMÜ */
+.chat-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.messages-list {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-container {
+  max-width: 75%;
+  padding: 12px;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  position: relative;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.my-message {
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.other-message {
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.sender-name {
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0 0 4px 0;
+}
+
+.message-text {
+  font-size: 16px;
+  margin: 0 0 16px 0;
+  word-wrap: break-word;
+}
+
+.timestamp {
+  font-size: 11px;
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+}
+
+/* GİRİŞ ALANI */
+.input-container {
+  display: flex;
+  padding: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.message-input {
+  flex: 1;
+  min-height: 40px;
+  max-height: 120px;
+  padding: 10px 16px;
+  border-radius: 20px;
+  border: 1px solid;
+  resize: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.send-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 0 20px;
+  margin-left: 8px;
+  height: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: background-color 0.2s;
+}
+
+.send-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.send-button:hover:not(:disabled) {
+  background-color: #0069d9;
+}
+
+/* RESPONSİVE AYARLAR */
+@media (min-width: 768px) {
+  .message-container {
+    max-width: 65%;
+  }
+
+  .message-text {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 767px) {
+  .conversation-car-info {
+    display: none;
+  }
+
+  .conversation-last-message {
+    max-width: 100%;
+  }
+}

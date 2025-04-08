@@ -1,0 +1,163 @@
+<div class="messages-container">
+  <!-- MESAJLAR LİSTESİ GÖRÜNÜMÜ -->
+  <div *ngIf="!activeConversation" class="conversation-list-view">
+    <div class="header" [ngStyle]="{ 'background-color': theme.headerColor }">
+      <h1 class="header-title" [ngStyle]="{ color: theme.accentColor }">
+        Mesajlarım
+      </h1>
+    </div>
+
+    <!-- Konuşma Listesi -->
+    <div *ngIf="conversationList.length > 0" class="conversation-list">
+      <div
+        *ngFor="let conversation of conversationList"
+        class="conversation-item"
+        [ngStyle]="{
+          'background-color': theme.cardColor,
+          'border-color': theme.borderColor
+        }"
+        (click)="handleConversationSelect(conversation)"
+      >
+        <div class="avatar-container">
+          <img
+            [src]="conversation.avatar"
+            alt="Avatar"
+            class="conversation-avatar"
+          />
+          <div *ngIf="conversation.unread > 0" class="unread-badge">
+            {{ conversation.unread }}
+          </div>
+        </div>
+        <div class="conversation-info">
+          <div class="conversation-header">
+            <h3
+              class="conversation-name"
+              [ngStyle]="{ color: theme.textColor }"
+              [class.unread-text]="conversation.unread > 0"
+            >
+              {{ conversation.name }}
+            </h3>
+            <span
+              class="conversation-time"
+              [ngStyle]="{ color: theme.secondaryTextColor }"
+            >
+              {{ formatTime(conversation.timestamp) }}
+            </span>
+          </div>
+          <div class="conversation-subheader">
+            <p
+              class="conversation-last-message"
+              [ngStyle]="{ color: theme.secondaryTextColor }"
+              [class.unread-text]="conversation.unread > 0"
+            >
+              {{ conversation.lastMessage }}
+            </p>
+            <span
+              class="conversation-car-info"
+              [ngStyle]="{ color: theme.secondaryTextColor }"
+            >
+              {{ conversation.car.make }} {{ conversation.car.model }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Boş Liste Mesajı -->
+    <div *ngIf="conversationList.length === 0" class="empty-container">
+      <h2 class="empty-text" [ngStyle]="{ color: theme.textColor }">
+        Henüz mesaj bulunmuyor
+      </h2>
+      <p class="empty-subtext" [ngStyle]="{ color: theme.secondaryTextColor }">
+        İlgilendiğiniz araçlar için satıcılarla iletişime geçin
+      </p>
+    </div>
+  </div>
+
+  <!-- MESAJLAŞMA GÖRÜNÜMÜ -->
+  <div *ngIf="activeConversation" class="chat-view">
+    <div class="header" [ngStyle]="{ 'background-color': theme.headerColor }">
+      <button class="back-button" (click)="handleBackToList()">
+        <span [ngStyle]="{ color: theme.textColor }">←</span>
+      </button>
+
+      <div class="header-info">
+        <h2 class="header-text" [ngStyle]="{ color: theme.textColor }">
+          {{ activeConversation.name }}
+        </h2>
+        <p
+          class="subheader-text"
+          [ngStyle]="{ color: theme.secondaryTextColor }"
+        >
+          {{ activeConversation.car.make }} {{ activeConversation.car.model }}
+        </p>
+      </div>
+
+      <div class="header-avatar">
+        <img
+          [src]="activeConversation.avatar"
+          alt="Avatar"
+          class="avatar-image"
+        />
+      </div>
+    </div>
+
+    <!-- Mesajlar -->
+    <div class="messages-list">
+      <div
+        *ngFor="let msg of messages"
+        class="message-container"
+        [class.my-message]="msg.isMine"
+        [class.other-message]="!msg.isMine"
+        [ngStyle]="{
+          'background-color': msg.isMine
+            ? theme.accentColor + '20'
+            : theme.cardColor
+        }"
+      >
+        <p
+          *ngIf="!msg.isMine"
+          class="sender-name"
+          [ngStyle]="{ color: theme.accentColor }"
+        >
+          {{ msg.sender }}
+        </p>
+        <p class="message-text" [ngStyle]="{ color: theme.textColor }">
+          {{ msg.text }}
+        </p>
+        <span class="timestamp" [ngStyle]="{ color: theme.secondaryTextColor }">
+          {{ formatTime(msg.timestamp) }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Mesaj Gönderme -->
+    <div
+      class="input-container"
+      [ngStyle]="{ 'background-color': theme.cardColor }"
+    >
+      <textarea
+        class="message-input"
+        [ngStyle]="{
+          'background-color': theme.backgroundColor,
+          color: theme.textColor,
+          'border-color': theme.borderColor
+        }"
+        placeholder="Mesajınızı yazın..."
+        [(ngModel)]="message"
+        (keyup.enter)="sendMessage()"
+      ></textarea>
+      <button
+        class="send-button"
+        [ngStyle]="{
+          'background-color':
+            message.trim() === '' ? theme.buttonColor + '80' : theme.accentColor
+        }"
+        [disabled]="message.trim() === ''"
+        (click)="sendMessage()"
+      >
+        Gönder
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,312 @@
+<div
+  class="container"
+  [ngStyle]="{ 'background-color': theme.backgroundColor }"
+>
+  <!-- Header -->
+  <div class="header" [ngStyle]="{ 'background-color': theme.headerColor }">
+    <button *ngIf="showBackButton" class="back-button" (click)="goBack()">
+      <span [ngStyle]="{ color: theme.textColor }">←</span>
+    </button>
+    <h1 class="header-title" [ngStyle]="{ color: theme.textColor }">
+      Araç Detayları
+    </h1>
+    <button *ngIf="car" class="favorite-button" (click)="toggleFavorite(car)">
+      <span class="favorite-icon">
+        {{ car && isFavorite(car.id) ? "❤️" : "🤍" }}
+      </span>
+    </button>
+  </div>
+
+  <!-- Hata Mesajı (Car yoksa) -->
+  <div *ngIf="!car" class="error-container">
+    <h2 class="error-text" [ngStyle]="{ color: theme.textColor }">
+      Araç bilgisi bulunamadı
+    </h2>
+    <button
+      class="button"
+      [ngStyle]="{ 'background-color': theme.accentColor }"
+      (click)="goBack()"
+    >
+      <span style="color: #fff">Geri Dön</span>
+    </button>
+  </div>
+
+  <!-- Car Details (Car varsa) -->
+  <div *ngIf="car" class="content-scroll">
+    <div class="image-container">
+      <img [src]="car.image" class="car-image" alt="Car Image" />
+    </div>
+
+    <div class="content-container">
+      <div class="title-row">
+        <h2 class="car-title" [ngStyle]="{ color: theme.textColor }">
+          {{ car.year }} {{ car.make }} {{ car.model }}
+        </h2>
+        <p class="car-price" [ngStyle]="{ color: theme.accentColor }">
+          {{ car.price }}
+        </p>
+      </div>
+
+      <button
+        class="credit-button"
+        [ngStyle]="{ 'border-color': theme.accentColor }"
+      >
+        <span [ngStyle]="{ color: theme.accentColor }">Kredi Teklifi Al</span>
+      </button>
+
+      <div
+        class="location-container"
+        [ngStyle]="{ 'border-color': theme.borderColor }"
+      >
+        <p
+          class="location-text"
+          [ngStyle]="{ color: theme.secondaryTextColor }"
+        >
+          {{ car.location || "Sivas / Merkez / Gültepe Mh." }}
+        </p>
+      </div>
+
+      <div class="specs-container">
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >İlan No</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.adNumber || "1234787939" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >İlan Tarihi</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.adDate || "22 Mart 2025" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Marka</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.make || "Peugeot" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Seri</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.series || car.model || "308" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Model</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.modelDetail || "1.2 Puretech Allure" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Yıl</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.year || "2024" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Yakıt</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.fuel || "Benzin" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Vites</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.transmission || "Otomatik" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Araç Durumu</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.condition || "İkinci El" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >KM</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.mileage || "6.150 km" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Kasa Tipi</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.bodyType || "Hatchback 5 kapı" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Motor Gücü</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.enginePower || "130 hp" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Motor Hacmi</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.engineCapacity || "1199 cc" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Çekiş</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.drive || "Önden Çekiş" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Renk</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.color || "Mavi" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Garanti</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.warranty || "Evet" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Ağır Hasar Kayıtlı</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.damaged || "Hayır" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Plaka / Uyruk</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.plateNationality || "Türkiye (TR) Plakalı" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Kimden</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.seller || "Galeriden" }}
+          </span>
+        </div>
+
+        <div class="spec-row" [ngStyle]="{ 'border-color': theme.borderColor }">
+          <span
+            class="spec-label"
+            [ngStyle]="{ color: theme.secondaryTextColor }"
+            >Takas</span
+          >
+          <span class="spec-value" [ngStyle]="{ color: theme.textColor }">
+            {{ car.details?.exchange || "Evet" }}
+          </span>
+        </div>
+      </div>
+
+      <div class="action-container">
+        <button
+          class="primary-button"
+          [ngStyle]="{ 'background-color': theme.accentColor }"
+          (click)="handleContactPress()"
+        >
+          <span style="color: #fff">İletişime Geç</span>
+        </button>
+
+        <button
+          class="secondary-button"
+          [ngStyle]="{
+            'background-color': theme.cardColor,
+            'border-color': theme.accentColor
+          }"
+        >
+          <span [ngStyle]="{ color: theme.accentColor }">Test Sürüşü İste</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

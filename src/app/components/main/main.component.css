@@ -1,0 +1,531 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Üst Navigasyon */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 5%;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  margin: 0 15px;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 4%;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.nav-item.active {
+  opacity: 1;
+}
+
+.nav-icon {
+  font-size: 22px;
+  margin-bottom: 3px;
+}
+
+.nav-text {
+  font-size: 12px;
+}
+
+.badge {
+  position: absolute;
+  top: 8px;
+  margin-left: 15px;
+  background-color: #ff4b4b;
+  color: white;
+  font-size: 10px;
+  border-radius: 10px;
+  padding: 2px 6px;
+  min-width: 16px;
+  text-align: center;
+}
+
+.profile-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profile-icon {
+  font-size: 20px;
+}
+
+/* İçerik Alanı */
+.content-container {
+  flex: 1;
+  padding-bottom: 20px;
+  overflow-y: auto;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Arama Alanı */
+.search-container {
+  display: flex;
+  padding: 16px 5%;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-input-container {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  border-radius: 8px;
+  padding: 10px 12px;
+  border: 1px solid;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  background: transparent;
+  margin: 0 8px;
+}
+
+.clear-search {
+  cursor: pointer;
+}
+
+.filter-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 12px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.filter-icon {
+  font-size: 18px;
+}
+
+/* Bölüm Başlıkları */
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px 5% 12px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  margin-top: 20px;
+}
+
+.clear-filter-text {
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Kategoriler */
+.categories-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px 5%;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.categories-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 15px;
+  width: 80px;
+  padding: 10px 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.category-icon {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.category-name {
+  font-size: 14px;
+}
+
+/* Öne Çıkan Araçlar */
+.featured-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px 5%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.featured-container::-webkit-scrollbar {
+  display: none;
+}
+
+.featured-car-item {
+  position: relative;
+  width: 350px;
+  height: 200px;
+  margin-right: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.featured-car-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featured-favorite-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.favorite-icon {
+  font-size: 18px;
+}
+
+.featured-car-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 12px;
+}
+
+.featured-car-title {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.featured-car-price {
+  color: #fff;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* Araç Listesi */
+.list-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+}
+
+.view-all-text {
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.car-item {
+  margin: 0 5% 25px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  cursor: pointer;
+}
+
+.car-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.car-details {
+  padding: 16px;
+}
+
+.car-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.car-price {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.car-info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.car-info,
+.car-location {
+  font-size: 16px;
+}
+
+/* Arama Sonuçları */
+.search-results-container {
+  padding: 16px 5%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-result-item {
+  display: flex;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.search-result-image {
+  width: 120px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.search-result-details {
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.search-result-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.search-result-price {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 6px;
+}
+
+.search-result-location {
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.search-result-favorite-button {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-results-container,
+.no-results-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.empty-results-text,
+.no-results-text {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.clear-filter-button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.clear-filter-button-text {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.search-results-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+/* Responsive Düzenlemeler */
+@media (min-width: 768px) {
+  .nav-items {
+    margin: 0 5%;
+  }
+
+  .nav-item {
+    margin: 0 25px;
+  }
+
+  .nav-icon {
+    font-size: 24px;
+  }
+
+  .nav-text {
+    font-size: 14px;
+  }
+
+  .featured-car-item {
+    width: 400px;
+    height: 220px;
+  }
+
+  .car-item {
+    display: flex;
+    height: 220px;
+  }
+
+  .car-image {
+    width: 35%;
+    height: 100%;
+  }
+
+  .car-details {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .search-result-image {
+    width: 150px;
+    height: 120px;
+  }
+
+  .search-results-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .top-nav {
+    padding: 15px 8%;
+  }
+
+  .header-title {
+    font-size: 28px;
+  }
+
+  .search-container,
+  .section-header,
+  .section-title,
+  .list-header-container,
+  .categories-container,
+  .featured-container,
+  .search-results-container {
+    padding-left: 8%;
+    padding-right: 8%;
+  }
+
+  .car-item {
+    margin-left: 8%;
+    margin-right: 8%;
+  }
+
+  .featured-car-item {
+    width: 450px;
+    height: 250px;
+  }
+
+  .search-results-title {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .featured-container {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .featured-car-item {
+    margin: 10px;
+  }
+
+  .car-item {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .car-image {
+    width: 30%;
+  }
+}
